@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
+import Scan from '../views/scan/index.vue';
 
 Vue.use(VueRouter);
 
@@ -18,10 +19,16 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
   },
+  {
+    path: '/scan',
+    name: 'Scan',
+    component: Scan,
+  },
 ];
 
 const router = new VueRouter({
   routes,
+  mode: 'history',
 });
 
 export default router;
