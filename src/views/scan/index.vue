@@ -1,6 +1,18 @@
+/* eslint-disable no-alert */
 <template>
   <div>
-    <div class="box">
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container">
+          <button @click="inputType('url')" class="button is-rounded">URL</button>
+          <button @click="inputType('text')" class="button is-rounded">Text</button>
+          <button @click="inputType('image')" class="button is-rounded">Images</button>
+          <button @click="inputType('document')" class="button is-rounded">Documents</button>
+        </div>
+      </div>
+    </section>
+
+    <div v-if="input_type === 'url'" class="box">
       <div class="tags is-centered are-large">
         <h2 class="is-large">By URL</h2>
       </div>
@@ -19,7 +31,7 @@
       </div>
     </div>
 
-    <div class="box">
+    <div v-if="input_type === 'text'" class="box">
       <div class="tags is-centered are-large">
         <h2 class="is-large">By Text</h2>
       </div>
@@ -38,7 +50,7 @@
       </div>
     </div>
 
-    <div class="box">
+    <div v-if="input_type === 'image'" class="box">
       <div class="tags is-centered are-large">
         <h2 class="is-large">By Image</h2>
       </div>
@@ -59,7 +71,7 @@
         </div>
         <div class="control">
           <a class="button is-info is-rounded">
-            Extract
+            Upload
             <span class="icon">
               <i class="fas search"></i>
             </span>
@@ -68,7 +80,7 @@
       </div>
     </div>
 
-    <div class="box">
+    <div v-if="input_type === 'document'" class="box">
       <div class="tags is-centered are-large">
         <h2 class="is-large">By Article Documents</h2>
       </div>
@@ -83,13 +95,13 @@
                 </span>
                 <span class="file-label">Choose a file…</span>
               </span>
-              <span class="file-name">No documents is selected</span>
+              <span class="file-name">No document is selected</span>
             </label>
           </div>
         </div>
         <div class="control">
           <a class="button is-info is-rounded">
-            Extract
+            Upload
             <span class="icon">
               <i class="fas search"></i>
             </span>
@@ -102,6 +114,27 @@
 <script>
 export default {
   name: 'ScanNews',
+  data() {
+    return {
+      dialog_visible: false,
+      input_type: 'url',
+    };
+  },
+
+  methods: {
+    // eslint-disable-next-line camelcase
+    inputType(data) {
+      if (data === 'url') {
+        this.input_type = data;
+      } else if (data === 'text') {
+        this.input_type = data;
+      } else if (data === 'image') {
+        this.input_type = data;
+      } else {
+        this.input_type = data;
+      }
+    },
+  },
 };
 </script>
 <style scoped>

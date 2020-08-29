@@ -57,7 +57,7 @@
         </div>
       </div>
     </section>
-    <router-view id="app" />
+    <router-view/>
     <footer class="footer">
       <div class="content has-text-centered">
         <p>
