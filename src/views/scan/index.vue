@@ -110,9 +110,4 @@ export default {
   margin-left: 27%;
   margin-right: 27%;
 }
-.box2 {
-  margin-top: 5%;
-  margin-left: 27%;
-  margin-right: 27%;
-}
 </style>
