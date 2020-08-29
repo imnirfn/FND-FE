@@ -1,7 +1,8 @@
 <template>
     <div class="box">
       <div class="tags is-centered are-large">
-        <span class="tag is-dark">Images</span>
+        <span class="tag is-dark is-active">Images</span>
+        <span class="tag is-dark">Documents</span>
         <span class="tag is-dark">Text</span>
         <span class="tag is-dark">URL</span>
     </div>
@@ -31,6 +32,6 @@ export default {
   margin-top: 5%;
   margin-left:27%;
   margin-right:27%;
-  background-color: rgb(56, 101, 131);
+  background-color: white;
 }
 </style>
