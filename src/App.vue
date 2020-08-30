@@ -17,10 +17,18 @@
 
       <div class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item">Home</a>
-          <a class="navbar-item">About</a>
-          <a class="navbar-item">Analytics</a>
-          <a class="navbar-item">History</a>
+          <a class="navbar-item">
+            <router-link to="/">Home</router-link>
+          </a>
+          <a class="navbar-item">
+            <router-link to="/about">About</router-link>
+          </a>
+          <a class="navbar-item">
+            <router-link to="/analytics">Analyitics</router-link>
+          </a>
+          <a class="navbar-item">
+            <router-link to="/history">History</router-link>
+          </a>
           <!-- <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">Scan</a>
 

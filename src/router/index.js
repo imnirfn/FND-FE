@@ -24,6 +24,11 @@ const routes = [
     name: 'Scan',
     component: Scan,
   },
+  {
+    path: '/history',
+    name: 'History',
+    component: () => import(/* webpackChunkName: "about" */ '../views/History.vue'),
+  },
 ];
 
 const router = new VueRouter({
