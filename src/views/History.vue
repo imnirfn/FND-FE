@@ -1,6 +1,7 @@
 <template>
   <div class="history">
     <div class="box">
+      <h1 class="title is-centered">Search History</h1>
       <section class="hero">
           <table class="table is-bordered is-striped is-narrow is-hoverable">
     <thead>
