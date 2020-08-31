@@ -10,8 +10,26 @@
           <button @click="inputType('document')" class="button is-rounded">Documents</button>
         </div>
       </div>
+      <div class="container">
+      <h1 class="title is-centered">Fake-O-Meter-Inator</h1>
+      <VueSvgGauge
+          class="mini-gauge"
+          :start-angle="-90"
+          :end-angle="90"
+          :value="random"
+          :separator-step="0"
+          :gauge-color="[{ offset: 0, color: '#f4c009'}, { offset: 100, color: '#00afa8'}]"
+          :scale-interval="0"
+          :inner-radius="65"
+          :easing="easing"
+          base-color="#d0cdcd"
+        >
+          <div class="inner-text inner-text--2">
+            <span>68%</span>
+          </div>
+        </VueSvgGauge>
+    </div>
     </section>
-
     <div v-if="input_type === 'url'" class="box">
       <div class="tags is-centered are-large">
         <h2 class="is-large">By URL</h2>
@@ -112,6 +130,8 @@
   </div>
 </template>
 <script>
+import { VueSvgGauge } from 'vue-svg-gauge';
+
 export default {
   name: 'ScanNews',
   data() {
@@ -120,7 +140,9 @@ export default {
       input_type: 'url',
     };
   },
-
+  components: {
+    VueSvgGauge,
+  },
   methods: {
     // eslint-disable-next-line camelcase
     inputType(data) {
