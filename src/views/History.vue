@@ -1,6 +1,6 @@
 <template>
   <div class="history">
-    <div class="box">
+    <div class="box" v-for="history in histories" :key="history">
       <h1 class="title is-centered">Search History</h1>
       <section class="hero">
           <table class="table is-bordered is-striped is-narrow is-hoverable">
@@ -15,21 +15,9 @@
     <tbody>
       <tr>
         <th>1</th>
-        <td>COVID-20, The Sequal of COVID-19</td>
+        <td>{{ history.Functions.FunctionName }}</td>
         <td><span><i class="fas fa-link"></i></span></td>
         <td><span class="tag is-primary is-medium">Authentic</span></td>
-      </tr>
-      <tr>
-        <th>2</th>
-        <td>Muaz Bengkok</td>
-        <td><span><i class="fas fa-link"></i></span></td>
-        <td><span class="tag is-primary is-medium">Authentic</span></td>
-      </tr>
-      <tr>
-        <th>3</th>
-        <td>HeiTech is The Best Public-Listed Company</td>
-        <td><span><i class="fas fa-link"></i></span></td>
-        <td><span class="tag is-danger is-medium">Fake</span></td>
       </tr>
     </tbody>
   </table>
@@ -38,7 +26,27 @@
   </div>
 </template>
 <script>
+import { ref } from '@vue/composition-api';
 
+export default {
+  setup() {
+    const histories = ref([]);
+    const API_URL = 'http://localhost:5001/api/v1/lambda/listFunction';
+
+    async function getHistory() {
+      const response = await fetch(API_URL);
+      const json = await response.json();
+      histories.value = json;
+      console.log('test', histories.value.Functions);
+    }
+
+    getHistory();
+
+    return {
+      histories,
+    };
+  },
+};
 </script>
 <style scoped>
 .box {

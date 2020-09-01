@@ -12,11 +12,11 @@
       </div>
       <div class="container">
       <h1 class="title is-centered">Fake-O-Meter-Inator</h1>
-      <VueSvgGauge
+      <!-- <VueSvgGauge
           class="mini-gauge"
           :start-angle="-90"
           :end-angle="90"
-          :value="random"
+          :value="20"
           :separator-step="0"
           :gauge-color="[{ offset: 0, color: '#f4c009'}, { offset: 100, color: '#00afa8'}]"
           :scale-interval="0"
@@ -27,7 +27,7 @@
           <div class="inner-text inner-text--2">
             <span>68%</span>
           </div>
-        </VueSvgGauge>
+        </VueSvgGauge> -->
     </div>
     </section>
     <div v-if="input_type === 'url'" class="box">
@@ -141,6 +141,7 @@ export default {
     };
   },
   components: {
+    // eslint-disable-next-line vue/no-unused-components
     VueSvgGauge,
   },
   methods: {
