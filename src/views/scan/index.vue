@@ -10,9 +10,9 @@
           <button @click="inputType('document')" class="button is-rounded">Documents</button>
         </div>
       </div>
-      <div class="container">
+      <!-- <div class="container">
       <h1 class="title is-centered">Fake-O-Meter-Inator</h1>
-      <!-- <VueSvgGauge
+      <VueSvgGauge
           class="mini-gauge"
           :start-angle="-90"
           :end-angle="90"
@@ -27,8 +27,8 @@
           <div class="inner-text inner-text--2">
             <span>68%</span>
           </div>
-        </VueSvgGauge> -->
-    </div>
+        </VueSvgGauge>
+        </div> -->
     </section>
     <div v-if="input_type === 'url'" class="box">
       <div class="tags is-centered are-large">
@@ -40,11 +40,11 @@
             class="input is-info is-rounded"
             type="text"
             placeholder="Place URL Here!"
-            v-model="url_input"
+            v-model="url"
           />
         </div>
         <div class="control">
-          <a class="button is-info is-rounded" @click="sendURL(url_input)">
+          <a class="button is-info is-rounded" @click="sendurl">
             Extract
             <span class="icon">
               <i class="fas search"></i>
@@ -132,13 +132,57 @@
         </div>
       </div>
     </div>
+
+    <div class="box">
+      <div class="tags is-centered are-large">
+        <h2 class="is-large">Extracted Text</h2>
+      </div>
+      <div class="field has-addons">
+        <div class="control is-expanded">
+          <p class="is-medium"> {{ extracted.Payload }}</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 <script>
 import { VueSvgGauge } from 'vue-svg-gauge';
-import axios from 'axios';
+import { ref } from '@vue/composition-api';
+import { useRouter } from '@u3u/vue-hooks';
 
 export default {
+  setup() {
+    // eslint-disable-next-line no-unused-vars
+    const { router } = useRouter();
+    const url = ref('');
+    let extracted = ref('');
+    // http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com
+    const API_URL = 'http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com:5001/api/v1/lambda/scrape-to-document';
+
+    async function sendurl() {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          data: url.value,
+        }),
+      });
+
+      extracted = await response.json();
+      console.log(extracted.Payload);
+    }
+
+    sendurl();
+
+    return {
+      extracted,
+      url,
+      sendurl,
+    };
+  },
   name: 'ScanNews',
   data() {
     return {
@@ -152,7 +196,6 @@ export default {
     VueSvgGauge,
   },
   methods: {
-    // eslint-disable-next-line camelcase
     inputType(data) {
       if (data === 'url') {
         this.input_type = data;
@@ -163,12 +206,6 @@ export default {
       } else {
         this.input_type = data;
       }
-    },
-    sendURL(url) {
-      const API_URL = 'http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com:5001/api/v1/lambda/scrape-to-document';
-      axios.post(API_URL, {
-        data: url,
-      }).then((response) => console.log(response));
     },
   },
 };
