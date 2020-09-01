@@ -166,7 +166,6 @@ export default {
     },
     sendURL(url) {
       const API_URL = 'http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com:5001/api/v1/lambda/scrape-to-document';
-      console.log(url);
       axios.post(API_URL, {
         data: url,
       }).then((response) => console.log(response));
