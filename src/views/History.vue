@@ -1,6 +1,6 @@
 <template>
   <div class="history">
-    <div class="box" v-for="history in histories" :key="history.id">
+    <div class="box">
       <h1 class="title is-centered">Search History</h1>
       <section class="hero">
           <table class="table is-bordered is-striped is-narrow is-hoverable">
@@ -12,11 +12,11 @@
         <th>Status</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody v-for="history in histories" :key="history.id">
       <tr>
-        <th>1</th>
+        <th>{{ history.Id }}</th>
         <td>{{ history.FunctionName }}</td>
-        <td><span><i class="fas fa-link"></i></span></td>
+        <td><span><i class="fas fa-link"></i>{{ history.Handler }}</span></td>
         <td><span class="tag is-primary is-medium">Authentic</span></td>
       </tr>
     </tbody>
@@ -38,7 +38,6 @@ export default {
       const json = await response.json();
       console.log('here', json.Functions);
       histories.value = json.Functions;
-      console.log('test', histories.value[0].FunctionName);
     }
 
     getHistory();
