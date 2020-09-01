@@ -14,7 +14,7 @@
     </thead>
     <tbody v-for="history in histories" :key="history.id">
       <tr>
-        <th>{{ history.Id }}</th>
+        <th>{{ history.id }}</th>
         <td>{{ history.FunctionName }}</td>
         <td><span><i class="fas fa-link"></i>{{ history.Handler }}</span></td>
         <td><span class="tag is-primary is-medium">Authentic</span></td>
@@ -31,7 +31,7 @@ import { ref } from '@vue/composition-api';
 export default {
   setup() {
     const histories = ref([]);
-    const API_URL = 'http://localhost:5001/api/v1/lambda/listFunction';
+    const API_URL = 'http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com:5001/api/v1/lambda/listFunction';
 
     async function getHistory() {
       const response = await fetch(API_URL);
