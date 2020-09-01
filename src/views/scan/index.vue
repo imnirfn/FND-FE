@@ -36,10 +36,15 @@
       </div>
       <div class="field has-addons">
         <div class="control is-expanded">
-          <input class="input is-info is-rounded" type="text" placeholder="Place URL Here!" />
+          <input
+            class="input is-info is-rounded"
+            type="text"
+            placeholder="Place URL Here!"
+            v-model="url_input"
+          />
         </div>
         <div class="control">
-          <a class="button is-info is-rounded">
+          <a class="button is-info is-rounded" @click="sendURL(url_input)">
             Extract
             <span class="icon">
               <i class="fas search"></i>
@@ -55,7 +60,7 @@
       </div>
       <div class="field has-addons">
         <div class="control is-expanded">
-          <textarea class="textarea is-info is-rounded" placeholder="e.g. Nuq gay"></textarea>
+          <textarea class="textarea is-info is-rounded" placeholder="e.g. Muaz gay"></textarea>
         </div>
         <div class="control">
           <a class="button is-info is-rounded">
@@ -131,6 +136,7 @@
 </template>
 <script>
 import { VueSvgGauge } from 'vue-svg-gauge';
+import axios from 'axios';
 
 export default {
   name: 'ScanNews',
@@ -138,6 +144,7 @@ export default {
     return {
       dialog_visible: false,
       input_type: 'url',
+      url_input: '',
     };
   },
   components: {
@@ -156,6 +163,13 @@ export default {
       } else {
         this.input_type = data;
       }
+    },
+    sendURL(url) {
+      const API_URL = 'http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com:5001/api/v1/lambda/scrape-to-document';
+      console.log(url);
+      axios.post(API_URL, {
+        data: url,
+      }).then((response) => console.log(response));
     },
   },
 };

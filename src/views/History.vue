@@ -31,7 +31,7 @@ import { ref } from '@vue/composition-api';
 export default {
   setup() {
     const histories = ref([]);
-    const API_URL = 'http://localhost:5001/api/v1/lambda/listFunction';
+    const API_URL = 'http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com:5001/api/v1/lambda/listFunction';
 
     async function getHistory() {
       const response = await fetch(API_URL);
