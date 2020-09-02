@@ -26,7 +26,7 @@
         >
           <div class="inner-text inner-text--2">
             <span v-if="executed">START</span>
-            <span v-else>{{data.predictions}}%</span>
+            <span v-else>{{gaugemeter}}%</span>
           </div>
         </VueSvgGauge>
         </div>
@@ -183,8 +183,15 @@ export default {
       });
       extracted = await response.json();
       console.log(extracted);
+      const index = 0;
+      let pred = 0;
+      [pred] = extracted.data.predictions;
+      pred = extracted.data.predictions[index][index];
       this.executed = false;
-      this.gaugemeter = 60;
+      this.gaugemeter = (100 * (1 - pred));
+      console.log(pred);
+      console.log(this.gaugemeter);
+      console.log('data', extracted.data.predictions[0][0]);
     }
     async function senddoc() {
       const formData = new FormData();
@@ -199,7 +206,7 @@ export default {
         }),
       });
       extracted = await response.json();
-      console.log('data', extracted.data.predictions[0][0]);
+      console.log(response);
     }
     senddoc();
     sendurl();
@@ -219,6 +226,7 @@ export default {
       input_type: 'url',
       gaugemeter: 0,
       executed: true,
+      pred: 0,
     };
   },
   components: {
