@@ -181,7 +181,7 @@ export default {
         }),
       });
       extracted = await response.json();
-      console.log(extracted.Payload);
+      console.log('data', extracted.data.predictions[0][0]);
     }
     async function senddoc() {
       const formData = new FormData();
