@@ -10,13 +10,13 @@
           <button @click="inputType('document')" class="button is-rounded">Documents</button>
         </div>
       </div>
-      <!-- <div class="container">
+      <div class="container">
       <h1 class="title is-centered">Fake-O-Meter-Inator</h1>
       <VueSvgGauge
           class="mini-gauge"
           :start-angle="-90"
           :end-angle="90"
-          :value="20"
+          :value="gaugemeter"
           :separator-step="0"
           :gauge-color="[{ offset: 0, color: '#f4c009'}, { offset: 100, color: '#00afa8'}]"
           :scale-interval="0"
@@ -25,10 +25,11 @@
           base-color="#d0cdcd"
         >
           <div class="inner-text inner-text--2">
-            <span>68%</span>
+            <span v-if="executed">START</span>
+            <span v-else>{{gaugemeter}}%</span>
           </div>
         </VueSvgGauge>
-        </div> -->
+        </div>
     </section>
     <div v-if="input_type === 'url'" class="box">
       <div class="tags is-centered are-large">
@@ -181,6 +182,15 @@ export default {
         }),
       });
       extracted = await response.json();
+      console.log(extracted);
+      const index = 0;
+      let pred = 0;
+      [pred] = extracted.data.predictions;
+      pred = extracted.data.predictions[index][index];
+      this.executed = false;
+      this.gaugemeter = (100 * (1 - pred));
+      console.log(pred);
+      console.log(this.gaugemeter);
       console.log('data', extracted.data.predictions[0][0]);
     }
     async function senddoc() {
@@ -196,7 +206,7 @@ export default {
         }),
       });
       extracted = await response.json();
-      console.log(extracted);
+      console.log(response);
     }
     senddoc();
     sendurl();
@@ -214,6 +224,9 @@ export default {
       dialog_visible: false,
       uploaded: true,
       input_type: 'url',
+      gaugemeter: 0,
+      executed: true,
+      pred: 0,
     };
   },
   components: {
