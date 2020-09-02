@@ -106,7 +106,7 @@
       </div>
       <div class="field has-addons">
         <div class="control is-expanded">
-          <form @submit.prevent="onChangeFileUpload" enctype="multipart/form-data">
+          <form @submit.prevent="senddoc" enctype="multipart/form-data">
             <div class="file has-name">
               <label class="file-label">
                 <input
@@ -165,9 +165,9 @@ export default {
     const file = ref('');
     let extracted = ref('');
     // http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com
-    const BASE_URL = 'http://ec2-54-169-217-226.ap-southeast-1.compute.amazonaws.com:5001/api/v1';
-    const API_URL = `${BASE_URL}api/v1/predict/with_url `;
-    const API_DOC = `${BASE_URL}api/v1/predict/with_document `;
+    const BASE_URL = 'http://ec2-54-169-217-226.ap-southeast-1.compute.amazonaws.com:5001';
+    const API_URL = `${BASE_URL}/api/v1/predict/with_url `;
+    const API_DOC = `${BASE_URL}/api/v1/predict/with_document `;
     // eslint-disable-next-line no-unused-vars
     const API_TEXT = `${BASE_URL}api/v1/predict/with_text `;
     async function sendurl() {
