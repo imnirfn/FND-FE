@@ -109,21 +109,30 @@
       </div>
       <div class="field has-addons">
         <div class="control is-expanded">
-          <div class="file has-name">
-            <label class="file-label">
-              <input class="file-input" type="file" name="resume" />
-              <span class="file-cta">
-                <span class="file-icon">
-                  <i class="fas fa-upload"></i>
+          <form @submit.prevent="onChangeFileUpload" enctype="multipart/form-data">
+            <div class="file has-name">
+              <label class="file-label">
+                <input
+                  class="file-input"
+                  type="file"
+                  id="file"
+                  ref="file"
+                  @change="onChangeFileUpload"
+                />
+                <span class="file-cta">
+                  <span class="file-icon">
+                    <i class="fas fa-upload"></i>
+                  </span>
+                  <span class="file-label">Choose a file…</span>
                 </span>
-                <span class="file-label">Choose a file…</span>
-              </span>
-              <span class="file-name">No document is selected</span>
-            </label>
-          </div>
+                <span v-if="uploaded" class="file-name">No document is selected</span>
+                 <span v-else class="file-name">{{file.name}}</span>
+              </label>
+            </div>
+          </form>
         </div>
         <div class="control">
-          <a class="button is-info is-rounded">
+          <a class="button is-info is-rounded" @click="senddoc">
             Upload
             <span class="icon">
               <i class="fas search"></i>
@@ -156,10 +165,12 @@ export default {
     // eslint-disable-next-line no-unused-vars
     const { router } = useRouter();
     const url = ref('');
+    const file = ref('');
     let extracted = ref('');
     // http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com
-    const API_URL = 'http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com:5001/api/v1/lambda/scrape-to-document';
-
+    const BASE_URL = 'http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com:5001/api/v1';
+    const API_URL = `${BASE_URL}/lambda/scrape-to-document`;
+    const API_DOC = `${BASE_URL}/s3/uploadDocument`;
     async function sendurl() {
       const response = await fetch(API_URL, {
         method: 'POST',
@@ -170,25 +181,40 @@ export default {
           data: url.value,
         }),
       });
-
       extracted = await response.json();
       console.log(extracted.Payload);
     }
-
+    async function senddoc() {
+      const formData = new FormData();
+      formData.append('file', file);
+      const response = await fetch(API_DOC, {
+        method: 'POST',
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+        body: JSON.stringify({
+          filename: file.value,
+        }),
+      });
+      extracted = await response.json();
+      console.log(extracted.Payload);
+    }
+    senddoc();
     sendurl();
 
     return {
       extracted,
       url,
       sendurl,
+      senddoc,
     };
   },
   name: 'ScanNews',
   data() {
     return {
       dialog_visible: false,
+      uploaded: true,
       input_type: 'url',
-      url_input: '',
     };
   },
   components: {
@@ -206,6 +232,14 @@ export default {
       } else {
         this.input_type = data;
       }
+    },
+    onChangeFileUpload() {
+      this.uploaded = false;
+      console.log(this.file);
+      const index = 0;
+      [this.file] = this.$refs.file.files;
+      this.file = this.$refs.file.files[index];
+      console.log(this.file);
     },
   },
 };
