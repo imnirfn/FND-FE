@@ -145,7 +145,7 @@
       </div>
       <div class="field has-addons">
         <div class="control is-expanded">
-          <p class="is-medium"> {{ extracted.Payload }}</p>
+          <p class="is-medium"> {{ extracted }}</p>
         </div>
       </div>
     </div>
