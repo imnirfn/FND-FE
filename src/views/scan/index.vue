@@ -34,6 +34,7 @@
       <div class="tags is-centered are-large">
         <h2 class="is-large">By URL</h2>
       </div>
+      <form @submit.prevent="sendurl">
       <div class="field has-addons">
         <div class="control is-expanded">
           <input
@@ -44,14 +45,10 @@
           />
         </div>
         <div class="control">
-          <a class="button is-info is-rounded" @click="sendurl">
-            Extract
-            <span class="icon">
-              <i class="fas search"></i>
-            </span>
-          </a>
+          <button type="submit" class="button is-rounded is-info">Extract</button>
         </div>
       </div>
+      </form>
     </div>
 
     <div v-if="input_type === 'text'" class="box">
@@ -168,7 +165,7 @@ export default {
     const file = ref('');
     let extracted = ref('');
     // http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com
-    const BASE_URL = 'http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com:5001/api/v1';
+    const BASE_URL = 'http://ec2-54-169-217-226.ap-southeast-1.compute.amazonaws.com:5001/api/v1';
     const API_URL = `${BASE_URL}/lambda/scrape-to-document`;
     const API_DOC = `${BASE_URL}/s3/uploadDocument`;
     async function sendurl() {
@@ -197,7 +194,7 @@ export default {
         }),
       });
       extracted = await response.json();
-      console.log(extracted.Payload);
+      console.log(extracted);
     }
     senddoc();
     sendurl();
