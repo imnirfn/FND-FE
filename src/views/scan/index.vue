@@ -157,16 +157,17 @@
 import { VueSvgGauge } from 'vue-svg-gauge';
 import { ref } from '@vue/composition-api';
 import { useRouter } from '@u3u/vue-hooks';
+import axios from 'axios';
 
 export default {
   setup() {
     // eslint-disable-next-line no-unused-vars
     const { router } = useRouter();
     const url = ref('');
-    const file = ref('');
+    // const file = ref('');
     let extracted = ref('');
     // http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com
-    const BASE_URL = 'http://ec2-54-169-217-226.ap-southeast-1.compute.amazonaws.com:5001';
+    const BASE_URL = 'http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com:5001';
     const API_URL = `${BASE_URL}/api/v1/predict/with_url `;
     const API_DOC = `${BASE_URL}/api/v1/predict/with_document `;
     // eslint-disable-next-line no-unused-vars
@@ -195,18 +196,15 @@ export default {
     }
     async function senddoc() {
       const formData = new FormData();
-      formData.append('file', file);
-      const response = await fetch(API_DOC, {
-        method: 'POST',
-        headers: {
-          'content-type': 'multipart/form-data',
-        },
-        body: JSON.stringify({
-          filename: file.name,
-        }),
-      });
-      extracted = await response.json();
-      console.log(response);
+      formData.append('filename', this.file, this.file.name);
+      const resAxios = await axios.post(API_DOC,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+      console.log('axios response', resAxios);
     }
     senddoc();
     sendurl();
@@ -247,11 +245,7 @@ export default {
     },
     onChangeFileUpload() {
       this.uploaded = false;
-      console.log(this.file);
-      const index = 0;
       [this.file] = this.$refs.file.files;
-      this.file = this.$refs.file.files[index];
-      console.log(this.file);
     },
   },
 };
