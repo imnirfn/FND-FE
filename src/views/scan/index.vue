@@ -167,11 +167,12 @@ export default {
     // const file = ref('');
     let extracted = ref('');
     // http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com
-    const BASE_URL = 'http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com:5001';
+    const BASE_URL = 'http://localhost:5001';
     const API_URL = `${BASE_URL}/api/v1/predict/with_url `;
     const API_DOC = `${BASE_URL}/api/v1/predict/with_document `;
     // eslint-disable-next-line no-unused-vars
     const API_TEXT = `${BASE_URL}api/v1/predict/with_text `;
+
     async function sendurl() {
       const response = await fetch(API_URL, {
         method: 'POST',
@@ -194,6 +195,7 @@ export default {
       console.log(this.gaugemeter);
       console.log('data', extracted.data.predictions[0][0]);
     }
+
     async function senddoc() {
       const formData = new FormData();
       formData.append('filename', this.file, this.file.name);
@@ -206,14 +208,18 @@ export default {
         });
       console.log('axios response', resAxios);
     }
-    senddoc();
-    sendurl();
+
+    function onChangeFileUpload() {
+      this.uploaded = false;
+      [this.file] = this.$refs.file.files;
+    }
 
     return {
       extracted,
       url,
       sendurl,
       senddoc,
+      onChangeFileUpload,
     };
   },
   name: 'ScanNews',
@@ -242,10 +248,6 @@ export default {
       } else {
         this.input_type = data;
       }
-    },
-    onChangeFileUpload() {
-      this.uploaded = false;
-      [this.file] = this.$refs.file.files;
     },
   },
 };
