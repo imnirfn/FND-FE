@@ -26,32 +26,7 @@
           <a class="navbar-item">
             <router-link to="/history">History</router-link>
           </a>
-          <!-- <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">Scan</a>
-
-            <div class="navbar-dropdown">
-              <a class="navbar-item">Images</a>
-              <a class="navbar-item">Documents</a>
-              <a class="navbar-item">Text</a>
-              <a class="navbar-item" href="/scan">Url</a>
-              <hr class="navbar-divider" />
-              <a class="navbar-item">Report an issue</a>
-            </div>
-          </div>-->
         </div>
-
-        <!-- <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons">
-              <a class="button is-primary">
-                <strong>Sign up</strong>
-              </a>
-              <a class="button is-light">
-                Log in
-              </a>
-            </div>
-          </div>
-        </div>-->
       </div>
     </nav>
     <section class="hero is-primary">
@@ -81,5 +56,10 @@
   text-align: center;
   color: white;
   background-color: white;
+}
+
+.a {
+  color: inherit;
+  text-decoration: none;
 }
 </style>

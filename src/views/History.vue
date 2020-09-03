@@ -1,9 +1,9 @@
 <template>
   <div class="history">
-    <div class="box">
+    <div class="box is-centered">
       <h1 class="title is-centered">Search History</h1>
-      <section class="hero">
-          <table class="table is-bordered is-striped is-narrow is-hoverable">
+      <section class="hero is-centered">
+          <table class="table is-bordered is-striped is-narrow is-hoverable is-large">
     <thead>
       <tr>
         <th><abbr title="Position">No.</abbr></th>
@@ -21,6 +21,19 @@
       </tr>
     </tbody>
   </table>
+  <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+  <a class="pagination-previous">Previous</a>
+  <a class="pagination-next">Next page</a>
+  <ul class="pagination-list">
+    <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
+    <li><span class="pagination-ellipsis">&hellip;</span></li>
+    <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
+    <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
+    <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
+    <li><span class="pagination-ellipsis">&hellip;</span></li>
+    <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
+  </ul>
+</nav>
       </section>
     </div>
   </div>
@@ -31,7 +44,7 @@ import { ref } from '@vue/composition-api';
 export default {
   setup() {
     const histories = ref([]);
-    const API_URL = 'http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com:5001/api/v1/lambda/listFunction';
+    const API_URL = 'http://localhost:5001/api/v1/lambda/listFunction';
 
     async function getHistory() {
       const response = await fetch(API_URL);
@@ -51,7 +64,14 @@ export default {
 <style scoped>
 .box {
   margin-top: 5%;
-  margin-left: 27%;
-  margin-right: 27%;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-bottom: 5%;
+}
+
+.table {
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
