@@ -21,10 +21,7 @@
             <router-link to="/">Home</router-link>
           </a>
           <a class="navbar-item">
-            <router-link to="/about">About</router-link>
-          </a>
-          <a class="navbar-item">
-            <router-link to="/analytics">Analyitics</router-link>
+            <router-link to="/admin">Admin</router-link>
           </a>
           <a class="navbar-item">
             <router-link to="/history">History</router-link>
