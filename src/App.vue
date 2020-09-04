@@ -21,7 +21,7 @@
             <router-link to="/">Home</router-link>
           </a>
           <a class="navbar-item">
-            <router-link to="/admin">Admin</router-link>
+            <router-link to="/admin">Journalist</router-link>
           </a>
           <a class="navbar-item">
             <router-link to="/history">History</router-link>

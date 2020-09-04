@@ -167,7 +167,7 @@ export default {
     // const file = ref('');
     let extracted = ref('');
     // http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com
-    const BASE_URL = 'http://localhost:5001';
+    const BASE_URL = 'http://13.212.22.139:5001';
     const API_URL = `${BASE_URL}/api/v1/predict/with_url `;
     const API_DOC = `${BASE_URL}/api/v1/predict/with_document `;
     // eslint-disable-next-line no-unused-vars

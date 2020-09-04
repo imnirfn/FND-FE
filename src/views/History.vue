@@ -12,28 +12,33 @@
         <th>Status</th>
       </tr>
     </thead>
-    <tbody v-for="history in histories" :key="history.id">
+    <tbody>
       <tr>
-        <th>{{ history.id }}</th>
-        <td>{{ history.FunctionName }}</td>
-        <td><span><i class="fas fa-link"></i>{{ history.Handler }}</span></td>
+        <th>1</th>
+        <td>russia strikes syria</td>
+        <td><span><i class="fas fa-link"></i>{{ histories[0].url }}</span></td>
+        <td><span class="tag is-primary is-medium">Authentic</span></td>
+      </tr>
+      <tr>
+        <th>2</th>
+        <td>pizzas that are more indonesians</td>
+        <td><span><i class="fas fa-link"></i>{{ histories[1].url}}</span></td>
+        <td><span class="tag is-primary is-medium">Authentic</span></td>
+      </tr>
+      <tr>
+        <th>3</th>
+        <td>fundamental of analysis</td>
+        <td><span><i class="fas fa-link"></i>{{ histories[2].url }}</span></td>
+        <td><span class="tag is-danger is-medium">Fake</span></td>
+      </tr>
+      <tr>
+        <th>4</th>
+        <td>lgbtq commmunity rejects pedophiles</td>
+        <td><span><i class="fas fa-link"></i>{{ histories[3].url }}</span></td>
         <td><span class="tag is-primary is-medium">Authentic</span></td>
       </tr>
     </tbody>
   </table>
-  <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-  <a class="pagination-previous">Previous</a>
-  <a class="pagination-next">Next page</a>
-  <ul class="pagination-list">
-    <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
-    <li><span class="pagination-ellipsis">&hellip;</span></li>
-    <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
-    <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
-    <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
-    <li><span class="pagination-ellipsis">&hellip;</span></li>
-    <li><a class="pagination-link" aria-label="Goto page 86">86</a></li>
-  </ul>
-</nav>
       </section>
     </div>
   </div>
@@ -44,13 +49,13 @@ import { ref } from '@vue/composition-api';
 export default {
   setup() {
     const histories = ref([]);
-    const API_URL = 'http://localhost:5001/api/v1/lambda/listFunction';
+    const API_URL = 'http://13.212.22.139:5001/api/v1/dynamo/url-model';
 
     async function getHistory() {
       const response = await fetch(API_URL);
       const json = await response.json();
-      console.log('here', json.Functions);
-      histories.value = json.Functions;
+      console.log('here', json.Items);
+      histories.value = json.Items;
     }
 
     getHistory();
@@ -70,7 +75,6 @@ export default {
 }
 
 .table {
-  margin-top: 5%;
   margin-left: auto;
   margin-right: auto;
 }
