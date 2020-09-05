@@ -1,4 +1,4 @@
-  <!-- eslint-disable max-len -->
+  
 <template>
   <div class="admin">
     <div class="box">
