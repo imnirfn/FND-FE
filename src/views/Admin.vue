@@ -34,7 +34,7 @@
              >
               {{ (100 * (1 - (history.prediction).toFixed(0))) }}
              </p>
-            <p class="row" slot="content">
+            <p v-html="newLine(history.text)" class="row" slot="content">
              {{ newLine(history.text) }}
             </p>
              <div class="row" slot="content">
@@ -62,9 +62,6 @@ export default {
       console.log('here', json);
       histories.value = json.Items;
       console.log('his.val', histories.value);
-
-      this.idk = histories.value[0].text.replace(/\n/g, '<br />');
-      console.log('idk', this.idk);
     }
 
     getHistory();
@@ -83,7 +80,12 @@ export default {
 
   methods: {
     newLine(data) {
-      this.after = data.replace(/[\n\r]/g, '<br />');
+      this.after = data.split('\\n').join('<br />');
+      this.after = this.after.split('\\u201c').join('');
+      this.after = this.after.split('\\u2019').join("'");
+      this.after = this.after.split('\\u2018').join("'");
+      this.after = this.after.split('\\u201d').join('');
+      this.after = this.after.split('\\u2013').join('-');
       return this.after;
     },
   },
