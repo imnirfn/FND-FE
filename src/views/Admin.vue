@@ -35,7 +35,7 @@
               {{ (100 * (1 - (history.prediction).toFixed(0))) }}
              </p>
             <p class="row" slot="content">
-             {{ history.text }}
+             {{ newLine(history.text) }}
             </p>
              <div class="row" slot="content">
                 <button class="button is-danger is-small" slot="content">Fake</button>
@@ -61,7 +61,10 @@ export default {
       const json = await response.json();
       console.log('here', json);
       histories.value = json.Items;
-      console.log('his.val', histories);
+      console.log('his.val', histories.value);
+
+      this.idk = histories.value[0].text.replace(/\n/g, '<br />');
+      console.log('idk', this.idk);
     }
 
     getHistory();
@@ -73,12 +76,16 @@ export default {
 
   data() {
     return {
-
+      idk: '',
+      after: '',
     };
   },
 
   methods: {
-
+    newLine(data) {
+      this.after = data.replace(/[\n\r]/g, '<br />');
+      return this.after;
+    },
   },
 
   components: {
