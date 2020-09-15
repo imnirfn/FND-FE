@@ -30,7 +30,7 @@ import { BulmaAccordion, BulmaAccordionItem } from 'vue-bulma-accordion';
 export default {
   setup() {
     const histories = ref([]);
-    const API_URL = 'http://13.212.22.139:5001/api/v1/dynamo/url-model';
+    const API_URL = 'http://ec2-54-255-128-152.ap-southeast-1.compute.amazonaws.com:5001/api/v1/dynamo/url-model';
 
     async function getHistory() {
       const response = await fetch(API_URL);
