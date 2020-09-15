@@ -26,6 +26,9 @@
              >
               {{ history.sentiment }}
              </h4>
+            <p class="column has-text-primary" slot="title">
+              {{ (100 * (1 - (history.prediction).toFixed(0))) }}
+             </p>
             <p class="row" slot="content">
              {{ history.text }}
             </p>
