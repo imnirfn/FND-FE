@@ -185,15 +185,12 @@ export default {
       });
       extracted = await response.json();
       console.log(extracted);
-      const index = 0;
       let pred = 0;
-      [pred] = extracted.data.predictions;
-      pred = extracted.data.predictions[index][index];
+      pred = extracted.data.predictions;
       this.executed = false;
       this.gaugemeter = (100 * (1 - pred));
       console.log(pred);
       console.log(this.gaugemeter);
-      console.log('data', extracted.data.predictions[0][0]);
     }
 
     async function senddoc() {
