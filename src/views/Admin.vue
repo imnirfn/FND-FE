@@ -1,7 +1,8 @@
-  <template>
+ <!-- eslint-disable no-alert -->
+<template>
   <div class="admin">
     <div class="box">
-      <h1 class="title is-centered">Fact Checking</h1>
+      <h1 class="title">Fact Checking</h1>
       <section class="hero">
         <BulmaAccordion
           dropdown
@@ -11,12 +12,27 @@
           v-for="history in histories" :key="history.id"
         >
           <BulmaAccordionItem>
-            <h4 slot="title">{{ history.url }} | {{ history.sentiment }}</h4>
-            <p slot="content">
+            <h4 class="column is-four-fifths" slot="title">
+              <a :href="history.url">
+                {{ history.url }}
+              </a>
+             </h4>
+            <h4
+              :class="{'has-text-success': history.sentiment === 'POSITIVE',
+              'has-text-warning': history.sentiment === 'NEUTRAL',
+              'has-text-danger': history.sentiment === 'NEGATIVE'}"
+              class="column"
+              slot="title"
+             >
+              {{ history.sentiment }}
+             </h4>
+            <p class="row" slot="content">
              {{ history.text }}
-             <button class="button is-primary is-small" slot="content">Authentic</button>
-             <button class="button is-danger is-small" slot="content">Fake</button>
             </p>
+             <div class="row" slot="content">
+                <button class="button is-danger is-small" slot="content">Fake</button>
+                <button class="button is-primary is-small" slot="content">Authentic</button>
+             </div>
           </BulmaAccordionItem>
         </BulmaAccordion>
       </section>
@@ -45,6 +61,16 @@ export default {
     return {
       histories,
     };
+  },
+
+  data() {
+    return {
+
+    };
+  },
+
+  methods: {
+
   },
 
   components: {
