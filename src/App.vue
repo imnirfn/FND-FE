@@ -39,8 +39,8 @@
     </section>
     <router-view/>
     <footer class="footer">
-      <div class="content has-text-centered">
-        <p>
+      <div class="content">
+        <p class="">
           <strong>Copyright TinggiTecc 2020</strong>
         </p>
       </div>
@@ -61,5 +61,10 @@
 .a {
   color: inherit;
   text-decoration: none;
+}
+
+.footer {
+  display: flex;
+  min-height: 50vh;
 }
 </style>
