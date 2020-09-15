@@ -1,5 +1,4 @@
-  
-<template>
+  <template>
   <div class="admin">
     <div class="box">
       <h1 class="title is-centered">Fact Checking</h1>
