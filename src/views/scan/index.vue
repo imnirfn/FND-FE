@@ -140,7 +140,7 @@
     </div>
 
     <div :class="{'is-active': loading}" class="pageloader">
-      <span class="title">Pageloader</span>
+      <span class="title">Fetching results..</span>
     </div>
 
   </div>

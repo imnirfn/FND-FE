@@ -62,8 +62,6 @@ export default {
       console.log('here', json);
       histories.value = json.Items;
       console.log('his.val', histories.value);
-
-      console.log('idk', this.idk);
     }
 
     getHistory();
