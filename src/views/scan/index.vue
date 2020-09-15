@@ -165,7 +165,7 @@ export default {
     const { router } = useRouter();
     const url = ref('');
     // const file = ref('');
-    let extracted = ref('');
+    const extracted = ref('');
     // http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com
     const BASE_URL = 'http://ec2-54-255-128-152.ap-southeast-1.compute.amazonaws.com:5001';
     const API_URL = `${BASE_URL}/api/v1/predict/with_url `;
@@ -174,26 +174,29 @@ export default {
     const API_TEXT = `${BASE_URL}api/v1/predict/with_text `;
 
     async function sendurl() {
-      const response = await fetch(API_URL, {
-        method: 'POST',
+      const response = await axios({
+        method: 'post',
+        url: API_URL,
         headers: {
           'content-type': 'application/json',
         },
-        body: JSON.stringify({
+        data: JSON.stringify({
           data: url.value,
         }),
       });
-      extracted = await response.json();
-      console.log(extracted);
-      const index = 0;
+      // extracted = await response();
+      console.log(response);
+      // const index = 0;
       let pred = 0;
-      [pred] = extracted.data.predictions;
-      pred = extracted.data.predictions[index][index];
+      // [pred] = extracted.data.predictions;
+      pred = response.data.data.predictions;
+      pred = pred.toFixed(2);
       this.executed = false;
       this.gaugemeter = (100 * (1 - pred));
+      this.gaugemeter = this.gaugemeter.toFixed(2);
       console.log(pred);
       console.log(this.gaugemeter);
-      console.log('data', extracted.data.predictions[0][0]);
+      // console.log('data', extracted.data.predictions[0][0]);
     }
 
     async function senddoc() {
