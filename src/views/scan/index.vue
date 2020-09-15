@@ -139,15 +139,8 @@
       </div>
     </div>
 
-    <div class="box">
-      <div class="tags is-centered are-large">
-        <h2 class="is-large">Extracted Text</h2>
-      </div>
-      <div class="field has-addons">
-        <div class="control is-expanded">
-          <p class="is-medium"> {{ extracted }}</p>
-        </div>
-      </div>
+    <div :class="{'is-active': loading}" class="pageloader">
+      <span class="title">Pageloader</span>
     </div>
 
   </div>
@@ -173,28 +166,35 @@ export default {
     const API_TEXT = `${BASE_URL}api/v1/predict/with_text `;
 
     async function sendurl() {
-      const response = await axios({
-        method: 'post',
-        url: API_URL,
-        headers: {
-          'content-type': 'application/json',
-        },
-        data: JSON.stringify({
-          data: url.value,
-        }),
-      });
-      // extracted = await response();
-      console.log(response);
-      // const index = 0;
-      let pred = 0;
-      // [pred] = extracted.data.predictions;
-      pred = response.data.data.predictions;
-      pred = pred.toFixed(2);
-      this.executed = false;
-      this.gaugemeter = (100 * (1 - pred));
-      this.gaugemeter = this.gaugemeter.toFixed(2);
-      console.log(pred);
-      console.log(this.gaugemeter);
+      try {
+        this.loading = true;
+        const response = await axios({
+          method: 'post',
+          url: API_URL,
+          headers: {
+            'content-type': 'application/json',
+          },
+          data: JSON.stringify({
+            data: url.value,
+          }),
+        });
+        // extracted = await response();
+        console.log(response);
+        // const index = 0;
+        let pred = 0;
+        // [pred] = extracted.data.predictions;
+        pred = response.data.data.predictions;
+        pred = pred.toFixed(2);
+        this.executed = false;
+        this.gaugemeter = (100 * (1 - pred));
+        this.gaugemeter = this.gaugemeter.toFixed(2);
+        console.log(pred);
+        console.log(this.gaugemeter);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.loading = false;
+      }
       // console.log('data', extracted.data.predictions[0][0]);
     }
 
@@ -233,6 +233,7 @@ export default {
       gaugemeter: 0,
       executed: true,
       pred: 0,
+      loading: false,
     };
   },
   components: {
