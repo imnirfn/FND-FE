@@ -149,45 +149,25 @@
 import { VueSvgGauge } from 'vue-svg-gauge';
 import { ref } from '@vue/composition-api';
 import { useRouter } from '@u3u/vue-hooks';
-import axios from 'axios';
+import { sendURL, sendDoc } from '../../api/scan';
 
 export default {
   setup() {
     // eslint-disable-next-line no-unused-vars
     const { router } = useRouter();
     const url = ref('');
-    // const file = ref('');
     const extracted = ref('');
-    // http://ec2-54-255-174-221.ap-southeast-1.compute.amazonaws.com
-    const BASE_URL = 'http://ec2-54-255-128-152.ap-southeast-1.compute.amazonaws.com:5001';
-    const API_URL = `${BASE_URL}/api/v1/predict/with_url `;
-    const API_DOC = `${BASE_URL}/api/v1/predict/with_document `;
-    // eslint-disable-next-line no-unused-vars
-    const API_TEXT = `${BASE_URL}api/v1/predict/with_text `;
 
     async function sendurl() {
       try {
         this.loading = true;
-        const response = await axios({
-          method: 'post',
-          url: API_URL,
-          headers: {
-            'content-type': 'application/json',
-          },
-          data: JSON.stringify({
-            data: url.value,
-          }),
-        });
-        // extracted = await response();
+        const response = await sendURL(url.value);
         console.log(response);
-        // const index = 0;
-        let pred = 0;
-        // [pred] = extracted.data.predictions;
-        pred = response.data.data.predictions;
-        pred = pred.toFixed(2);
+
+        const pred = response.data.data.predictions.toFixed(2);
+        this.gaugemeter = (100 * (1 - pred)).toFixed(2);
+
         this.executed = false;
-        this.gaugemeter = (100 * (1 - pred));
-        this.gaugemeter = this.gaugemeter.toFixed(2);
         console.log(pred);
         console.log(this.gaugemeter);
       } catch (error) {
@@ -195,20 +175,18 @@ export default {
       } finally {
         this.loading = false;
       }
-      // console.log('data', extracted.data.predictions[0][0]);
     }
 
     async function senddoc() {
       const formData = new FormData();
       formData.append('filename', this.file, this.file.name);
-      const resAxios = await axios.post(API_DOC,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-      console.log('axios response', resAxios);
+
+      try {
+      // eslint-disable-next-line no-unused-vars
+        const response = await sendDoc(formData);
+      } catch (err) {
+        console.log(err);
+      }
     }
 
     function onChangeFileUpload() {
