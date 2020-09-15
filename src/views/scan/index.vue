@@ -6,8 +6,7 @@
         <div class="container">
           <button @click="inputType('url')" class="button is-rounded">URL</button>
           <button @click="inputType('text')" class="button is-rounded">Text</button>
-          <button @click="inputType('image')" class="button is-rounded">Images</button>
-          <button @click="inputType('document')" class="button is-rounded">Documents</button>
+          <button @click="inputType('document')" class="button is-rounded">Documents/Images</button>
         </div>
       </div>
       <div class="container">

@@ -1,7 +1,8 @@
-  <template>
+ <!-- eslint-disable no-alert -->
+<template>
   <div class="admin">
     <div class="box">
-      <h1 class="title is-centered">Fact Checking</h1>
+      <h1 class="title">Fact Checking</h1>
       <section class="hero">
         <BulmaAccordion
           dropdown
@@ -11,12 +12,35 @@
           v-for="history in histories" :key="history.id"
         >
           <BulmaAccordionItem>
-            <h4 slot="title">{{ history.url }} | {{ history.sentiment }}</h4>
-            <p slot="content">
-             {{ history.text }}
-             <button class="button is-primary is-small" slot="content">Authentic</button>
-             <button class="button is-danger is-small" slot="content">Fake</button>
+            <h4 class="column is-four-fifths" slot="title">
+              <a :href="history.url">
+                {{ history.url }}
+              </a>
+             </h4>
+            <h4
+              :class="{'has-text-success': history.sentiment === 'POSITIVE',
+              'has-text-warning': history.sentiment === 'NEUTRAL',
+              'has-text-danger': history.sentiment === 'NEGATIVE'}"
+              class="column"
+              slot="title"
+             >
+              {{ history.sentiment }}
+             </h4>
+            <p
+              :class="{'has-text-danger': (100 * (1 - (history.prediction).toFixed(0))) < 65,
+              'has-text-primary': (100 * (1 - (history.prediction).toFixed(0))) >= 65 }"
+              class="column"
+              slot="title"
+             >
+              {{ (100 * (1 - (history.prediction).toFixed(0))) }}
+             </p>
+            <p class="row" slot="content">
+             {{ newLine(history.text) }}
             </p>
+             <div class="row" slot="content">
+                <button class="button is-danger is-small" slot="content">Fake</button>
+                <button class="button is-primary is-small" slot="content">Authentic</button>
+             </div>
           </BulmaAccordionItem>
         </BulmaAccordion>
       </section>
@@ -37,7 +61,10 @@ export default {
       const json = await response.json();
       console.log('here', json);
       histories.value = json.Items;
-      console.log('his.val', histories);
+      console.log('his.val', histories.value);
+
+      this.idk = histories.value[0].text.replace(/\n/g, '<br />');
+      console.log('idk', this.idk);
     }
 
     getHistory();
@@ -45,6 +72,20 @@ export default {
     return {
       histories,
     };
+  },
+
+  data() {
+    return {
+      idk: '',
+      after: '',
+    };
+  },
+
+  methods: {
+    newLine(data) {
+      this.after = data.replace(/[\n\r]/g, '<br />');
+      return this.after;
+    },
   },
 
   components: {
