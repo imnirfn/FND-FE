@@ -32,6 +32,9 @@
           <a class="navbar-item">
             <router-link to="/journalist-list">People</router-link>
           </a>
+          <a class="navbar-item">
+            <router-link to="/dashboard">Dashboard</router-link>
+          </a>
         </div>
         <div class="navbar-end">
           <a class="navbar-item">
