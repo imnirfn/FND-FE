@@ -27,7 +27,7 @@ const routes = [
     component: Scan,
   },
   {
-    path: '/enteprise',
+    path: '/enterprise',
     name: 'Enterprise',
     component: () => import(/* webpackChunkName: "about" */ '../views/Enterprise.vue'),
   },
