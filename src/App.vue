@@ -3,9 +3,9 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="/">
-          <figure class="image is-96x128">
+
             <img class="is-rounded" src="@/assets/uitm.png">
-          </figure>
+
         </a>
 
         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false">
