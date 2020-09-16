@@ -16,8 +16,6 @@ api.interceptors.request.use(
       // eslint-disable-next-line no-param-reassign
       config.headers.Authorization = `Bearer ${getToken()}`;
     } else {
-      // eslint-disable-next-line no-alert
-      alert('no token');
       console.log('no token');
     }
     return config;
