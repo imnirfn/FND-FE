@@ -3,9 +3,9 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="/">
-          <h1>
-            <b>FND-FE</b>
-          </h1>
+          <figure class="image is-96x128">
+            <img class="is-rounded" src="@/assets/uitm.png">
+          </figure>
         </a>
 
         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false">
@@ -26,9 +26,9 @@
           <a class="navbar-item">
             <router-link to="/history">History</router-link>
           </a>
-          <a class="navbar-item">
+          <!-- <a class="navbar-item">
             <router-link to="/enterprise">Enterprise</router-link>
-          </a>
+          </a> -->
           <a class="navbar-item">
             <router-link to="/journalist-list">People</router-link>
           </a>

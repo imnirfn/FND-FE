@@ -3,7 +3,10 @@
     <h1 class="title mt-6">Analytics Overview</h1>
     <div class="columns">
         <div class="column small">
-            <line-chart style="width: 120%" :chart-data="reuters"></line-chart>
+            <line-chart style="width: 120%" :chart-data="bbc"></line-chart>
+        </div>
+        <div class="column small">
+            <line-chart style="width: 120%" :chart-data="addictinginfo"></line-chart>
         </div>
         <div class="column is-one-quarter">
             <h1>es</h1>
@@ -12,6 +15,9 @@
     <div class="columns">
         <div class="column small">
             <line-chart style="width: 120%" :chart-data="reuters"></line-chart>
+        </div>
+        <div class="column small">
+            <line-chart style="width: 120%" :chart-data="thestar"></line-chart>
         </div>
         <div class="column is-one-quarter">
             <h1>es</h1>
@@ -34,6 +40,9 @@ export default {
       datacollection: {},
       res: [],
       reuters: {},
+      addictinginfo: {},
+      thestar: {},
+      bbc: {},
     };
   },
   created() {
@@ -51,6 +60,51 @@ export default {
       for (let i = 0; i < this.res.data.Items.length; i++) {
         if (this.res.data.Items[i].url.includes('reuters')) {
           this.reuters.datasets.push({
+            label: this.res.data.Items[i].url.replace('http://', '').replace('https://', '').split(/[/?#]/)[0],
+            backgroundColor: '#f87979',
+            data: [0, ((1 - this.res.data.Items[i].prediction) * 100)],
+          });
+        }
+      }
+
+      this.bbc = {
+        labels: [],
+        datasets: [],
+      };
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < this.res.data.Items.length; i++) {
+        if (this.res.data.Items[i].url.includes('bbc')) {
+          this.bbc.datasets.push({
+            label: this.res.data.Items[i].url.replace('http://', '').replace('https://', '').split(/[/?#]/)[0],
+            backgroundColor: '#f87979',
+            data: [0, ((1 - this.res.data.Items[i].prediction) * 100)],
+          });
+        }
+      }
+
+      this.thestar = {
+        labels: [],
+        datasets: [],
+      };
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < this.res.data.Items.length; i++) {
+        if (this.res.data.Items[i].url.includes('thestar')) {
+          this.thestar.datasets.push({
+            label: this.res.data.Items[i].url.replace('http://', '').replace('https://', '').split(/[/?#]/)[0],
+            backgroundColor: '#f87979',
+            data: [0, ((1 - this.res.data.Items[i].prediction) * 100)],
+          });
+        }
+      }
+
+      this.addictinginfo = {
+        labels: [],
+        datasets: [],
+      };
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < this.res.data.Items.length; i++) {
+        if (this.res.data.Items[i].url.includes('addictinginfo')) {
+          this.addictinginfo.datasets.push({
             label: this.res.data.Items[i].url.replace('http://', '').replace('https://', '').split(/[/?#]/)[0],
             backgroundColor: '#f87979',
             data: [0, ((1 - this.res.data.Items[i].prediction) * 100)],
