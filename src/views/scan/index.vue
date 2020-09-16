@@ -10,7 +10,11 @@
         </div>
       </div>
       <div class="container">
-      <h1 class="title is-centered">Fake-O-Meter-Inator</h1>
+      <div class="columns">
+        <h2 class="title has-text-small has-text-danger column">Fake</h2>
+        <h1 class="title is-centered column">Fake-O-Meter-Inator</h1>
+        <h2 class="title has-text-small has-text-primary column">Authentic</h2>
+      </div>
       <VueSvgGauge
           class="mini-gauge"
           :start-angle="-90"

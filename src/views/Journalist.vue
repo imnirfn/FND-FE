@@ -34,6 +34,7 @@
              >
               {{ formatPercentage(100 * (1 - (history.prediction).toFixed(1))) }}
              </p>
+            <h1 class="row" slot="content"><strong>Scraped data</strong></h1>
             <p v-html="newLine(history.text)" class="row" slot="content">
              {{ newLine(history.text) }}
             </p>
