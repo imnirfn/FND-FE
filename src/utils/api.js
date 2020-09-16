@@ -12,7 +12,7 @@ api.interceptors.request.use(
   config => {
     if (getToken()) {
       // eslint-disable-next-line no-alert
-      console.log(getToken());
+      console.log('token', getToken());
       // eslint-disable-next-line no-param-reassign
       config.headers.Authorization = `Bearer ${getToken()}`;
     } else {

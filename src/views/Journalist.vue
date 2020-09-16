@@ -45,6 +45,9 @@
         </BulmaAccordion>
       </section>
     </div>
+    <div :class="{'is-active': loading}" class="pageloader">
+      <span class="title">Fetching results..</span>
+    </div>
   </div>
 </template>
 <script>
@@ -57,9 +60,15 @@ export default {
     const histories = ref([]);
 
     async function getHistories() {
-      const response = await getHistory();
-      histories.value = response.data.Items;
-      console.log('histories', histories.value);
+      try {
+        const response = await getHistory();
+        histories.value = response.data.Items;
+        console.log('histories', histories.value);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.loading = false;
+      }
     }
 
     getHistories();
@@ -71,8 +80,7 @@ export default {
 
   data() {
     return {
-      idk: '',
-      after: '',
+      loading: false,
     };
   },
 

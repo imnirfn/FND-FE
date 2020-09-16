@@ -71,8 +71,4 @@
   text-decoration: none;
 }
 
-.footer {
-  display: flex;
-  min-height: 50vh;
-}
 </style>
