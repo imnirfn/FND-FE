@@ -21,10 +21,18 @@
             <router-link to="/">Home</router-link>
           </a>
           <a class="navbar-item">
-            <router-link to="/admin">Journalist</router-link>
+            <router-link to="/journalist">Journalist</router-link>
           </a>
           <a class="navbar-item">
             <router-link to="/history">History</router-link>
+          </a>
+          <a class="navbar-item">
+            <router-link to="/enterprise">Enterprise</router-link>
+          </a>
+        </div>
+        <div class="navbar-end">
+          <a class="navbar-item">
+            <router-link to="/login">Login</router-link>
           </a>
         </div>
       </div>
