@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '../store';
-import { getToken } from '../utils/auth';
+import { getToken } from './auth';
 
 // http://ec2-54-255-128-152.ap-southeast-1.compute.amazonaws.com:5001
 const api = axios.create({

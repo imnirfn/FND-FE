@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 
-const TokenKey = 'tinggitecc';
+const TokenKey = 'tinggitecc-fnd';
 
 export function getToken() {
   return Cookies.get(TokenKey);
