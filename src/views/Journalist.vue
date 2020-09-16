@@ -28,7 +28,7 @@
              </h4>
             <p
               :class="{'has-text-danger': (100 * (1 - (history.prediction).toFixed(2))) < 65,
-              'has-text-primary': (100 * (1 - (history.prediction).toFixed(2))) >= 65 }"
+              'has-text-success': (100 * (1 - (history.prediction).toFixed(2))) >= 65 }"
               class="column"
               slot="title"
              >
