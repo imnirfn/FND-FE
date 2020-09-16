@@ -45,20 +45,25 @@
 </template>
 <script>
 import { ref } from '@vue/composition-api';
+import { getHistory } from '../api/history';
 
 export default {
   setup() {
     const histories = ref([]);
-    const API_URL = 'http://ec2-54-255-128-152.ap-southeast-1.compute.amazonaws.com:5001/api/v1/dynamo/url-model';
 
-    async function getHistory() {
-      const response = await fetch(API_URL);
-      const json = await response.json();
-      console.log('here', json.Items);
-      histories.value = json.Items;
+    async function getHistories() {
+      try {
+        const response = await getHistory();
+        console.log(response);
+        const json = await response.json();
+        console.log('here', json.Items);
+        histories.value = json.Items;
+      } catch (err) {
+        console.log(err);
+      }
     }
 
-    getHistory();
+    getHistories();
 
     return {
       histories,

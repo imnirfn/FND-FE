@@ -1,4 +1,4 @@
-/* eslint-disable import/prefer-default-export */
+/* eslint-disable import/no-cycle */
 import api from '../utils/api';
 
 export function login(data) {

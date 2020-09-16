@@ -5,7 +5,7 @@
                 <div class="container">
                 <div class="columns is-centered">
                     <div class="column is-5-tablet is-4-desktop is-3-widescreen">
-                    <form action="" class="box">
+                    <form @submit.prevent="login" action="" class="box">
                         <div class="field">
                         <label for="" class="label">Email</label>
                         <div class="control has-icons-left">
@@ -18,7 +18,12 @@
                         <div class="field">
                         <label for="" class="label">Password</label>
                         <div class="control has-icons-left">
-                            <input v-model="form.password" type="password" placeholder="*******" class="input" required>
+                            <input
+                              v-model="form.password"
+                              type="password"
+                              placeholder="*******"
+                              class="input"
+                              required>
                             <span class="icon is-small is-left">
                             <i class="fa fa-lock"></i>
                             </span>
@@ -63,21 +68,19 @@ export default {
 
   methods: {
     login() {
-      this.$v.form.$touch();
+      console.log('form', this.form);
+      // eslint-disable-next-line no-alert
       this.$store.dispatch('Login', this.form)
-        .then((res) => {
-          console.log('res', res);
+        .then(() => {
           this.$router.push({ path: '/' });
         })
         .catch((err) => {
-          console.log('error');
+          console.log('error', err);
           if (err.response && err.response.status === '401') {
             // Invalid mobile or password
             console.log(err.response.message);
           }
         });
-      // eslint-disable-next-line no-alert
-      alert('Success');
     },
   },
 };
