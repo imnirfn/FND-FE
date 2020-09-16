@@ -27,12 +27,12 @@
               {{ history.sentiment }}
              </h4>
             <p
-              :class="{'has-text-danger': (100 * (1 - (history.prediction).toFixed(0))) < 65,
-              'has-text-primary': (100 * (1 - (history.prediction).toFixed(0))) >= 65 }"
+              :class="{'has-text-danger': (100 * (1 - (history.prediction).toFixed(2))) < 65,
+              'has-text-primary': (100 * (1 - (history.prediction).toFixed(2))) >= 65 }"
               class="column"
               slot="title"
              >
-              {{ (100 * (1 - (history.prediction).toFixed(0))) }}
+              {{ formatPercentage(100 * (1 - (history.prediction).toFixed(1))) }}
              </p>
             <p v-html="newLine(history.text)" class="row" slot="content">
              {{ newLine(history.text) }}
@@ -50,21 +50,19 @@
 <script>
 import { ref } from '@vue/composition-api';
 import { BulmaAccordion, BulmaAccordionItem } from 'vue-bulma-accordion';
+import { getHistory } from '../api/history';
 
 export default {
   setup() {
     const histories = ref([]);
-    const API_URL = 'http://ec2-54-255-128-152.ap-southeast-1.compute.amazonaws.com:5001/api/v1/dynamo/url-model';
 
-    async function getHistory() {
-      const response = await fetch(API_URL);
-      const json = await response.json();
-      console.log('here', json);
-      histories.value = json.Items;
-      console.log('his.val', histories.value);
+    async function getHistories() {
+      const response = await getHistory();
+      histories.value = response.data.Items;
+      console.log('histories', histories.value);
     }
 
-    getHistory();
+    getHistories();
 
     return {
       histories,
@@ -87,6 +85,15 @@ export default {
       this.after = this.after.split('\\u201d').join('');
       this.after = this.after.split('\\u2013').join('-');
       return this.after;
+    },
+    formatPercentage(data) {
+      const arr = data.toString().split('.');
+      if (arr.length === 2) {
+        arr[1] = arr[1].slice(0, 2);
+      } else {
+        arr[1] = '00';
+      }
+      return arr.join('.');
     },
   },
 

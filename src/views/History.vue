@@ -12,29 +12,29 @@
         <th>Status</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody v-if="histories">
       <tr>
         <th>1</th>
         <td>russia strikes syria</td>
-        <td><span><i class="fas fa-link"></i>{{ histories[0].url }}</span></td>
+        <td><span><i class="fas fa-link"></i>{{ histories[0] }}</span></td>
         <td><span class="tag is-primary is-medium">Authentic</span></td>
       </tr>
       <tr>
         <th>2</th>
         <td>pizzas that are more indonesians</td>
-        <td><span><i class="fas fa-link"></i>{{ histories[1].url}}</span></td>
+        <td><span><i class="fas fa-link"></i>{{ histories[1]}}</span></td>
         <td><span class="tag is-primary is-medium">Authentic</span></td>
       </tr>
       <tr>
         <th>3</th>
         <td>fundamental of analysis</td>
-        <td><span><i class="fas fa-link"></i>{{ histories[2].url }}</span></td>
+        <td><span><i class="fas fa-link"></i>{{ histories[2] }}</span></td>
         <td><span class="tag is-danger is-medium">Fake</span></td>
       </tr>
       <tr>
         <th>4</th>
         <td>lgbtq commmunity rejects pedophiles</td>
-        <td><span><i class="fas fa-link"></i>{{ histories[3].url }}</span></td>
+        <td><span><i class="fas fa-link"></i>{{ histories[3] }}</span></td>
         <td><span class="tag is-primary is-medium">Authentic</span></td>
       </tr>
     </tbody>
@@ -50,14 +50,14 @@ import { getHistory } from '../api/history';
 export default {
   setup() {
     const histories = ref([]);
+    // eslint-disable-next-line no-alert
+    alert('setup');
 
     async function getHistories() {
+      console.log('kf');
       try {
         const response = await getHistory();
-        console.log(response);
-        const json = await response.json();
-        console.log('here', json.Items);
-        histories.value = json.Items;
+        histories.value = response.data.Items;
       } catch (err) {
         console.log(err);
       }
