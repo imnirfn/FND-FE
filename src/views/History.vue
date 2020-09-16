@@ -50,11 +50,8 @@ import { getHistory } from '../api/history';
 export default {
   setup() {
     const histories = ref([]);
-    // eslint-disable-next-line no-alert
-    alert('setup');
 
     async function getHistories() {
-      console.log('kf');
       try {
         const response = await getHistory();
         histories.value = response.data.Items;
