@@ -46,8 +46,9 @@
     <section class="hero is-primary">
       <div class="hero-body">
         <div class="container">
-          <h1 class="title">Fake News Detector</h1>
-          <h2 class="subtitle">With Deeplearning</h2>
+          <h1 class="title">Cloud Native Fake News Detector</h1>
+          <h2 class="subtitle">Using deeplearning with
+            semi-auto data gathering and model training</h2>
         </div>
       </div>
     </section>
