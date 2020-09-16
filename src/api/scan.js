@@ -24,5 +24,13 @@ export function sendDoc(formData) {
   });
 }
 
-// with text url
-// /predict/with_text
+export function sendText(text) {
+  return api({
+    method: 'post',
+    url: '/predict/with_text',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: { data: text },
+  });
+}

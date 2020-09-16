@@ -11,27 +11,31 @@
       </div>
       <div class="container">
       <div class="columns">
-        <h2 class="title has-text-small has-text-danger column">Fake</h2>
         <h1 class="title is-centered column">Fake-O-Meter-Inator</h1>
-        <h2 class="title has-text-small has-text-primary column">Authentic</h2>
       </div>
       <VueSvgGauge
           class="mini-gauge"
           :start-angle="-90"
           :end-angle="90"
           :value="gaugemeter"
-          :separator-step="0"
-          :gauge-color="[{ offset: 0, color: '#f4c009'}, { offset: 100, color: '#00afa8'}]"
-          :scale-interval="0"
+          :separator-step="25"
+          :separator-thickness="1"
+          :gauge-color="[{ offset: 0, color: '#B22222'}, { offset: 100, color: '#32CD32'}]"
+          :scale-interval="10"
           :inner-radius="65"
-          :easing="easing"
           base-color="#d0cdcd"
         >
-          <div class="inner-text inner-text--2">
-            <span v-if="executed">START</span>
-            <span v-else>{{gaugemeter}}%</span>
+          <div class="inner-text ">
+            <span class="has-text-black" v-if="executed">START</span>
+            <span class="has-text-black" v-else>{{gaugemeter}}%</span>
           </div>
         </VueSvgGauge>
+        </div>
+        <div class="container" style="width: 62vh">
+          <div class="columns is-centered" >
+            <p class="subtitle has-text-centered has-text-danger column">Fake</p>
+            <p class="subtitle has-text-centered has-text-primary column">Authentic</p>
+          </div>
         </div>
     </section>
     <div v-if="input_type === 'url'" class="box">
@@ -61,10 +65,12 @@
       </div>
       <div class="field has-addons">
         <div class="control is-expanded">
-          <textarea class="textarea is-info is-rounded" placeholder="e.g. Muaz gay"></textarea>
+          <textarea class="textarea is-info is-rounded"
+          placeholder="Article text goes here"
+          v-model="articleText"></textarea>
         </div>
         <div class="control">
-          <a class="button is-info is-rounded">
+          <a class="button is-info is-rounded" @click="sendText">
             Extract
             <span class="icon">
               <i class="fas search"></i>
@@ -153,7 +159,7 @@
 import { VueSvgGauge } from 'vue-svg-gauge';
 import { ref } from '@vue/composition-api';
 import { useRouter } from '@u3u/vue-hooks';
-import { sendURL, sendDoc } from '../../api/scan';
+import { sendURL, sendDoc, sendText } from '../../api/scan';
 
 export default {
   setup() {
@@ -169,7 +175,7 @@ export default {
         console.log(response);
 
         const pred = response.data.data.predictions.toFixed(2);
-        this.gaugemeter = (100 * (1 - pred)).toFixed(2);
+        this.gaugemeter = parseFloat((100 * (1 - pred)).toFixed(2));
 
         this.executed = false;
         console.log(pred);
@@ -216,6 +222,7 @@ export default {
       executed: true,
       pred: 0,
       loading: false,
+      articleText: '',
     };
   },
   components: {
@@ -234,6 +241,27 @@ export default {
         this.input_type = data;
       }
     },
+    async sendText() {
+      this.articleText = this.articleText.replace(/["“‘”]/g, "'");
+      this.articleText = this.articleText.replace(/(\r\n|\n|\r)/gm, '');
+      console.log(this.articleText);
+      try {
+        this.loading = true;
+        const response = await sendText(this.articleText);
+        console.log(response);
+
+        const pred = response.data.data.predictions.toFixed(2);
+        this.gaugemeter = parseFloat((100 * (1 - pred)).toFixed(2));
+
+        this.executed = false;
+        console.log(pred);
+        console.log(this.gaugemeter);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.loading = false;
+      }
+    },
   },
 };
 </script>
@@ -243,4 +271,12 @@ export default {
   margin-left: 27%;
   margin-right: 27%;
 }
+
+.inner-text {
+  height: 100%;
+  color: 100%;
+  span {
+    max-width: 100px;
+    color: red;
+  }}
 </style>
