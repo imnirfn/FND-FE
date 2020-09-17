@@ -26,8 +26,8 @@
           base-color="#d0cdcd"
         >
           <div class="inner-text ">
-            <span class="has-text-black" v-if="executed">START</span>
-            <span class="has-text-black" v-else>{{gaugemeter}}%</span>
+            <span class="has-text-white" v-if="executed">START</span>
+            <span class="has-text-white" v-else>{{gaugemeter}}%</span>
           </div>
         </VueSvgGauge>
         </div>
