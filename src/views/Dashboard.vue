@@ -8,9 +8,6 @@
         <div class="column small">
             <line-chart style="width: 120%" :chart-data="addictinginfo"></line-chart>
         </div>
-        <div class="column is-one-quarter">
-            <h1>es</h1>
-        </div>
     </div>
     <div class="columns">
         <div class="column small">
@@ -18,9 +15,6 @@
         </div>
         <div class="column small">
             <line-chart style="width: 120%" :chart-data="thestar"></line-chart>
-        </div>
-        <div class="column is-one-quarter">
-            <h1>es</h1>
         </div>
     </div>
   </div>
