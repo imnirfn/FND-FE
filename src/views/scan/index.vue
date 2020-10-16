@@ -165,7 +165,7 @@ export default {
   setup() {
     // eslint-disable-next-line no-unused-vars
     const { router } = useRouter();
-    const url = ref('');
+    const url = ref('http://13.212.137.199:5001');
     const extracted = ref('');
 
     async function sendurl() {
