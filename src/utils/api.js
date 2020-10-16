@@ -4,7 +4,7 @@ import { getToken } from './auth';
 
 // http://ec2-54-255-128-152.ap-southeast-1.compute.amazonaws.com:5001
 const api = axios.create({
-  baseURL: 'http://ec2-54-255-128-152.ap-southeast-1.compute.amazonaws.com:5001/api/v1/',
+  baseURL: 'http://ec2-13-212-137-199.ap-southeast-1.compute.amazonaws.com:5001/api/v1/',
 });
 
 api.interceptors.request.use(
